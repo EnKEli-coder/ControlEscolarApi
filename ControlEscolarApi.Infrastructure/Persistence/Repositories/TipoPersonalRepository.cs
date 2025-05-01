@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Application.Interfaces.Persistence;
 using ControlEscolarApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,15 @@ public class TipoPersonalRepository(ControlEscolarDbContext dbContext)  : IGener
     _dbContext.Add(model);
   }
 
-  public IEnumerable<TipoPersonal> GetAll()
+  public IQueryable<TipoPersonal> GetAll(PaginationQueryParams queryParams)
   {
-    return _dbContext.TiposPersonal.ToList();
+    IQueryable<TipoPersonal> query = _dbContext.TiposPersonal;
+
+    if(!string.IsNullOrWhiteSpace(queryParams.Search)) {
+      query = query.Where(tipoPersonal => tipoPersonal.Nombre.Contains(queryParams.Search));
+    }
+
+    return query;
   }
 
   public async Task<List<TipoPersonal>> GetAllAsync()
@@ -44,7 +51,17 @@ public class TipoPersonalRepository(ControlEscolarDbContext dbContext)  : IGener
     return await _dbContext.TiposPersonal.FindAsync(id);
   }
 
-  public bool Remove(int id)
+    public IEnumerable<TipoPersonal> GetList(Expression<Func<TipoPersonal, bool>> predicate)
+    {
+        return _dbContext.TiposPersonal.Where(predicate).ToList();
+    }
+
+    public async Task<List<TipoPersonal>> GetListAsync(Expression<Func<TipoPersonal, bool>> predicate)
+    {
+        return await _dbContext.TiposPersonal.Where(predicate).ToListAsync();
+    }
+
+    public bool Remove(int id)
   {
     var model = _dbContext.TiposPersonal.Find(id);
       if (model is { })

@@ -3,7 +3,10 @@ using ControlEscolarApi.Application.Alumnos.Commands.CreateAlumno;
 using ControlEscolarApi.Application.Alumnos.Commands.DeleteAlumno;
 using ControlEscolarApi.Application.Alumnos.Commands.UpdateAlumno;
 using ControlEscolarApi.Application.Alumnos.Queries.GetAlumnos;
+using ControlEscolarApi.Application.Common;
+using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Contracts.Alumnos;
+using ControlEscolarApi.Contracts.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +20,12 @@ public class AlumnosController(ISender mediator, IMapper mapper) : ApiController
     private readonly IMapper _mapper = mapper;
 
     [HttpGet]
-    public async Task<IActionResult> GetAlumnos() {
+    public async Task<IActionResult> GetAlumnos([FromQuery] PaginationQueryParams queryParams) {
 
-        var result = await _mediator.Send(new GetAlumnosQuery());
+        var result = await _mediator.Send(new GetAlumnosQuery { QueryParams = queryParams });
 
         return result.Match(
-            result => Ok(_mapper.Map<List<AlumnoResponse>>(result)),
+            result => Ok(_mapper.Map<PaginatedListResponse<AlumnoResponse>>(result)),
             errors => Problem(errors)
         );
     }

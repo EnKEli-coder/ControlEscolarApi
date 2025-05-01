@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using ControlEscolarApi.Application.Authentication.Common;
+using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Application.Interfaces.Persistence;
 using ControlEscolarApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,7 @@ public class UserRepository(ControlEscolarDbContext dbContext) : IGenericReposit
     throw new NotImplementedException();
   }
 
-  public IEnumerable<User> GetAll()
+  public IQueryable<User> GetAll(PaginationQueryParams queryParams)
   {
     throw new NotImplementedException();
   }
@@ -45,7 +46,17 @@ public class UserRepository(ControlEscolarDbContext dbContext) : IGenericReposit
     throw new NotImplementedException();
   }
 
-  public bool Remove(int id)
+    public IEnumerable<User> GetList(Expression<Func<User, bool>> predicate)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<User>> GetListAsync(Expression<Func<User, bool>> predicate)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Remove(int id)
   {
     throw new NotImplementedException();
   }

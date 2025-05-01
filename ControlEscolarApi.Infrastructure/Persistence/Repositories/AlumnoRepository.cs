@@ -1,4 +1,8 @@
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Azure.Core;
+using ControlEscolarApi.Application.Common;
+using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Application.Interfaces.Persistence;
 using ControlEscolarApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +18,16 @@ public class AlumnoRepository(ControlEscolarDbContext dbContext) : IGenericRepos
     _dbContext.Add(model);
   }
 
-  public IEnumerable<Alumno> GetAll()
+  public IQueryable<Alumno> GetAll(PaginationQueryParams queryParams)
   {
-    return _dbContext.Alumnos.ToList();
+
+    IQueryable<Alumno> query = _dbContext.Alumnos;
+
+    if(!string.IsNullOrWhiteSpace(queryParams.Search)) {
+      query = query.Where(alumno => alumno.NumeroControl.Contains(queryParams.Search));
+    }
+
+    return query;
   }
 
   public async Task<List<Alumno>> GetAllAsync()
@@ -44,7 +55,17 @@ public class AlumnoRepository(ControlEscolarDbContext dbContext) : IGenericRepos
     return await _dbContext.Alumnos.FindAsync(id);
   }
 
-  public bool Remove(int id)
+    public IEnumerable<Alumno> GetList(Expression<Func<Alumno, bool>> predicate)
+    {
+        return _dbContext.Alumnos.Where(predicate).ToList();
+    }
+
+    public async Task<List<Alumno>> GetListAsync(Expression<Func<Alumno, bool>> predicate)
+    {
+        return await _dbContext.Alumnos.Where(predicate).ToListAsync();
+    }
+
+    public bool Remove(int id)
   {
     var model = _dbContext.Alumnos.Find(id);
         if (model is { })

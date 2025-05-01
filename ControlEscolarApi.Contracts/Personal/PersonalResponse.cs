@@ -10,6 +10,6 @@ public class PersonalResponse
     public DateTime FechaNacimiento { get; set; }
     public string NumeroControl { get; set;} = null!;
     public bool Estatus { get; set; }
-    public float Sueldo { get; set; }
+    public decimal Sueldo { get; set; }
     public int TipoPersonalId { get; set; }
 }

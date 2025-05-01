@@ -1,8 +1,10 @@
 using AutoMapper;
+using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Application.Personal.Commands.CreatePersonal;
 using ControlEscolarApi.Application.Personal.Commands.DeletePersonal;
 using ControlEscolarApi.Application.Personal.Commands.UpdatePersonal;
 using ControlEscolarApi.Application.Personal.Queries.GetPersonal;
+using ControlEscolarApi.Contracts.Common;
 using ControlEscolarApi.Contracts.Personal;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +18,12 @@ public class PersonalController(ISender mediator, IMapper mapper) : ApiControlle
     private readonly IMapper _mapper = mapper;
 
     [HttpGet]
-    public async Task<IActionResult> GetPersonal() {
+    public async Task<IActionResult> GetPersonal([FromQuery] PaginationQueryParams queryParams) {
 
-        var result = await _mediator.Send(new GetPersonalQuery());
+        var result = await _mediator.Send(new GetPersonalQuery { QueryParams = queryParams });
 
         return result.Match(
-            result => Ok(_mapper.Map<List<PersonalResponse>>(result)),
+            result => Ok(_mapper.Map<PaginatedListResponse<PersonalResponse>>(result)),
             errors => Problem(errors)
         );
     }

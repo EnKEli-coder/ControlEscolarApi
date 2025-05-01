@@ -1,11 +1,13 @@
 using AutoMapper;
 using ControlEscolarApi.Application.Alumnos.Commands.CreateAlumno;
+using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Application.Services;
 using ControlEscolarApi.Application.TiposPersonal.Commands.CreateTipoPersonal;
 using ControlEscolarApi.Application.TiposPersonal.Commands.DeleteTipoPersonal;
 using ControlEscolarApi.Application.TiposPersonal.Commands.UpdateTipoPersonal;
 using ControlEscolarApi.Application.TiposPersonal.Queries.GetTiposPersonal;
 using ControlEscolarApi.Contracts.Alumnos;
+using ControlEscolarApi.Contracts.Common;
 using ControlEscolarApi.Contracts.TiposPersonal;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +22,12 @@ public class TiposPersonalController(ISender mediator, IMapper mapper) : ApiCont
   private readonly IMapper _mapper = mapper;
 
   [HttpGet]
-  public async Task<IActionResult> GetTiposPersonal() {
+  public async Task<IActionResult> GetTiposPersonal([FromQuery] PaginationQueryParams queryParams) {
 
-    var result = await _mediator.Send(new GetTiposPersonalQuery());
+    var result = await _mediator.Send(new GetTiposPersonalQuery { QueryParams = queryParams });
 
     return result.Match(
-      result => Ok(_mapper.Map<List<TipoPersonalResponse>>(result)),
+      result => Ok(_mapper.Map<PaginatedListResponse<TipoPersonalResponse>>(result)),
       errors => Problem(errors)
     );
   }
