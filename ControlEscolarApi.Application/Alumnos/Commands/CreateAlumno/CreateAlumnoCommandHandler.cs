@@ -6,6 +6,10 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Alumnos.Commands.CreateAlumno;
 
+
+/// <summary>
+/// Maneja la creación de un alumno, valida duplicados y genera el numero de control
+/// </summary>
 public class CreateAlumnoCommandHandler(
   IGenericRepository<Alumno> alumnoRepository )  : IRequestHandler<CreateAlumnoCommand, ErrorOr<AlumnoResult>>
 {

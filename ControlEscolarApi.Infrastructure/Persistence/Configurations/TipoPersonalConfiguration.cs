@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ControlEscolarApi.Infrastructure.Persistence.Configurations;
 
+/// <summary>
+/// Configuración de la entidad TipoPersonal a la tabla en base de datos
+/// </summary>
 public class TipoPersonalConfiguration : IEntityTypeConfiguration<TipoPersonal>
 {
     public void Configure(EntityTypeBuilder<TipoPersonal> builder)

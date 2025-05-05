@@ -8,6 +8,10 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.TiposPersonal.Queries.GetAllTiposPersonal;
 
+
+/// <summary>
+/// Maneja la obtención de todos los tipos de personal
+/// </summary>
 public class GetAllTiposPersonalQueryHandler(
   IGenericRepository<TipoPersonal> tipoPersonalRepository ) : IRequestHandler<GetAllTiposPersonalQuery, ErrorOr<List<TipoPersonal>>>
 {

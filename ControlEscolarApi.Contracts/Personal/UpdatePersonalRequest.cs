@@ -1,5 +1,8 @@
 namespace ControlEscolarApi.Contracts.Personal;
 
+/// <summary>
+/// Request con datos necesarios para la actualización de un personal
+/// </summary>
 public class UpdatePersonalRequest 
 {
     public int Id { get; set; }

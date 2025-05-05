@@ -1,5 +1,8 @@
 namespace ControlEscolarApi.Contracts.Personal;
 
+/// <summary>
+/// Respuesta con datos de personal para mostrar en tabla
+/// </summary>
 public class PersonalResponse 
 {
     public int Id { get; set; }

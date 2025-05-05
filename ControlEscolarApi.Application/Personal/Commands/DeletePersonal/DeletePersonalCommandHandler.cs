@@ -5,6 +5,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Personal.Commands.DeletePersonal;
 
+/// <summary>
+/// Maneja la eliminación de un personal.
+/// </summary>
 public class DeletePersonalCommandHandler(
   IGenericRepository<Domain.Entities.Personal> personalRepository ) : IRequestHandler<DeletePersonalCommand, ErrorOr<bool>>
 {

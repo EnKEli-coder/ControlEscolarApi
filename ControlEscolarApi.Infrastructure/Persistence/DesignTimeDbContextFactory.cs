@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace ControlEscolarApi.Infrastructure.Persistence;
 
+/// <summary>
+/// Configuración para generar las migraciones
+/// </summary>
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ControlEscolarDbContext>
 {
     public ControlEscolarDbContext CreateDbContext(string[] args)

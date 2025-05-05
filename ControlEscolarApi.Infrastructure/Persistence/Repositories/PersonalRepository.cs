@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Linq.Expressions;
 using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Application.Interfaces.Persistence;
@@ -103,5 +104,14 @@ public class PersonalRepository(ControlEscolarDbContext dbContext) : IGenericRep
   public void Update(Personal model)
   {
     _dbContext.Entry(model).State = EntityState.Modified;
+  }
+
+  public async Task ExecuteStoredProcedureAsync(string spName, params DbParameter[] parameters)
+  {
+#pragma warning disable EF1002 
+    await _dbContext.Database.ExecuteSqlRawAsync(
+        $"EXEC {spName} {string.Join(",", parameters.Select(p => $"@{p.ParameterName}"))}",
+        parameters);
+#pragma warning restore EF1002 
   }
 }

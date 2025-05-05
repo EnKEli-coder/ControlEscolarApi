@@ -1,5 +1,9 @@
 namespace ControlEscolarApi.Contracts.TiposPersonal;
 
+
+/// <summary>
+/// Respuesta con los datos completos de tipo de personal
+/// </summary>
 public class TipoPersonalResponse {
   public int Id { get; set; }
   public string Prefijo { get; set;} = null!;

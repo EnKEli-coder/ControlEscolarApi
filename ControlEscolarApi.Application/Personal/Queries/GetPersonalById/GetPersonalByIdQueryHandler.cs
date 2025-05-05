@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControlEscolarApi.Application.Personal.Queries.GetPersonalById;
 
+/// <summary>
+/// Maneja la obtención de un personal por su id.
+/// </summary>
 public class GetPersonalQueryHandler(
   IGenericRepository<Domain.Entities.Personal> personalRepository ) : IRequestHandler<GetPersonalByIdQuery, ErrorOr<Domain.Entities.Personal>>
 {

@@ -6,6 +6,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Alumnos.Queries.GetAlumnos;
 
+/// <summary>
+/// Maneja la obtención alumnos con paginación
+/// </summary>
 public class GetAlumnosQueryHandler(
   IGenericRepository<Alumno> alumnoRepository ) : IRequestHandler<GetAlumnosQuery, ErrorOr<PaginatedList<AlumnoResult>>>
 {

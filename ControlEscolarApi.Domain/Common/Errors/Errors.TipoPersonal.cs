@@ -2,7 +2,11 @@ using ErrorOr;
 
 namespace ControlEscolarApi.Domain.Common.Errors;
 
-public static partial class Errors {
+public static partial class Errors
+{
+  /// <summary>
+  /// Errores esperados de la entidad tipo de personal
+  /// </summary>
   public static class TipoPersonal
   {
 
@@ -16,9 +20,9 @@ public static partial class Errors {
       description: "Ya hay un tipo de personal con ese nombre"
     );
 
-     public static Error DuplicatedPrefix => Error.Conflict(
-      code: "TipoPersonal.DuplicatedPrefix",
-      description: "Ya hay un tipo de personal con ese prefijo"
-    );
+    public static Error DuplicatedPrefix => Error.Conflict(
+     code: "TipoPersonal.DuplicatedPrefix",
+     description: "Ya hay un tipo de personal con ese prefijo"
+   );
   }
 }

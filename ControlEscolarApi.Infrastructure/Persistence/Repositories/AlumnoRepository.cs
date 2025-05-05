@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -23,7 +24,8 @@ public class AlumnoRepository(ControlEscolarDbContext dbContext) : IGenericRepos
 
     IQueryable<Alumno> query = _dbContext.Alumnos;
 
-    if(!string.IsNullOrWhiteSpace(queryParams.Search)) {
+    if (!string.IsNullOrWhiteSpace(queryParams.Search))
+    {
       query = query.Where(alumno => alumno.NumeroControl.Contains(queryParams.Search));
     }
 
@@ -57,26 +59,26 @@ public class AlumnoRepository(ControlEscolarDbContext dbContext) : IGenericRepos
     return await _dbContext.Alumnos.FindAsync(id);
   }
 
-    public IEnumerable<Alumno> GetList(Expression<Func<Alumno, bool>> predicate)
-    {
-        return _dbContext.Alumnos.Where(predicate).ToList();
-    }
+  public IEnumerable<Alumno> GetList(Expression<Func<Alumno, bool>> predicate)
+  {
+    return _dbContext.Alumnos.Where(predicate).ToList();
+  }
 
-    public async Task<List<Alumno>> GetListAsync(Expression<Func<Alumno, bool>> predicate)
-    {
-        return await _dbContext.Alumnos.Where(predicate).ToListAsync();
-    }
+  public async Task<List<Alumno>> GetListAsync(Expression<Func<Alumno, bool>> predicate)
+  {
+    return await _dbContext.Alumnos.Where(predicate).ToListAsync();
+  }
 
-    public bool Remove(int id)
+  public bool Remove(int id)
   {
     var model = _dbContext.Alumnos.Find(id);
-        if (model is { })
-        {
-            _dbContext.Alumnos.Remove(model);
-            return true;
-        }
+    if (model is { })
+    {
+      _dbContext.Alumnos.Remove(model);
+      return true;
+    }
 
-        return false;
+    return false;
   }
 
   public int Save()
@@ -102,5 +104,14 @@ public class AlumnoRepository(ControlEscolarDbContext dbContext) : IGenericRepos
   public void Update(Alumno model)
   {
     _dbContext.Entry(model).State = EntityState.Modified;
+  }
+
+  public async Task ExecuteStoredProcedureAsync(string spName, params DbParameter[] parameters)
+  {
+#pragma warning disable EF1002 
+    await _dbContext.Database.ExecuteSqlRawAsync(
+        $"EXEC {spName} {string.Join(",", parameters.Select(p => $"@{p.ParameterName}"))}",
+        parameters);
+#pragma warning restore EF1002 
   }
 }

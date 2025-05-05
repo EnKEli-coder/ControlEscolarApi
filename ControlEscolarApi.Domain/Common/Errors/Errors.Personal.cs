@@ -2,7 +2,12 @@ using ErrorOr;
 
 namespace ControlEscolarApi.Domain.Common.Errors;
 
-public static partial class Errors {
+public static partial class Errors
+{
+
+  /// <summary>
+  /// Errores esperados de la entidad personal
+  /// </summary>
   public static class Personal
   {
     public static Error DuplicatedEmail => Error.Conflict(

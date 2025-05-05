@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControlEscolarApi.Application.Personal.Queries.GetPersonal;
 
+/// <summary>
+/// Maneja la obtención de personal con paginación.
+/// </summary>
 public class GetPersonalQueryHandler(
   IGenericRepository<Domain.Entities.Personal> personalRepository ) : IRequestHandler<GetPersonalQuery, ErrorOr<PaginatedList<PersonalResult>>>
 {

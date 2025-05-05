@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ControlEscolarApi.Api.Controllers
 {
+    /// <summary>
+    /// Controlador de autenticación
+    /// </summary>
     [Route("auth")]
     [AllowAnonymous]
     public class AuthenticationController(ISender mediator, IMapper mapper) : ApiController
@@ -17,8 +20,13 @@ namespace ControlEscolarApi.Api.Controllers
         private readonly ISender _mediator = mediator;
         private readonly IMapper _mapper = mapper;
 
+        /// <summary>
+        /// Inicia la sesión del usuario
+        /// </summary>
+        /// <returns>Datos de la sesión con jwt o Problem</returns>
         [HttpPost("login")]
-        public async  Task<IActionResult> Login(LoginRequest request) {
+        public async Task<IActionResult> Login(LoginRequest request)
+        {
             var query = _mapper.Map<LoginQuery>(request);
             ErrorOr<AuthenticationResult> result = await _mediator.Send(query);
 

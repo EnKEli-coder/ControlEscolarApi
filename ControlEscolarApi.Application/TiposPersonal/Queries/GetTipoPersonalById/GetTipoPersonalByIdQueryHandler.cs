@@ -7,6 +7,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.TiposPersonal.Queries.GetTipoPersonalById;
 
+/// <summary>
+/// Maneja la obtención de un tipo de personal por su id
+/// </summary>
 public class GetTipoPersonalByIdQueryHandler(
   IGenericRepository<TipoPersonal> tipoPersonalRepository ) : IRequestHandler<GetTipoPersonalByIdQuery, ErrorOr<TipoPersonal>>
 {

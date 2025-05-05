@@ -7,6 +7,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Personal.Commands.UpdatePersonal;
 
+/// <summary>
+/// Maneja la actualización de un personal, valida duplicados y reglas de negocio
+/// </summary>
 public class UpdatePersonalCommandHandler(
   IGenericRepository<Domain.Entities.Personal> personalRepository,
   IGenericRepository<TipoPersonal> tipoPersonalRepository,

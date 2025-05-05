@@ -1,21 +1,20 @@
 using AutoMapper;
-using ControlEscolarApi.Application.Alumnos.Commands.CreateAlumno;
 using ControlEscolarApi.Application.Common.QueryParams;
-using ControlEscolarApi.Application.Services;
 using ControlEscolarApi.Application.TiposPersonal.Commands.CreateTipoPersonal;
 using ControlEscolarApi.Application.TiposPersonal.Commands.DeleteTipoPersonal;
 using ControlEscolarApi.Application.TiposPersonal.Commands.UpdateTipoPersonal;
 using ControlEscolarApi.Application.TiposPersonal.Queries.GetTipoPersonalById;
 using ControlEscolarApi.Application.TiposPersonal.Queries.GetTiposPersonal;
-using ControlEscolarApi.Contracts.Alumnos;
 using ControlEscolarApi.Contracts.Common;
 using ControlEscolarApi.Contracts.TiposPersonal;
-using ControlEscolarApi.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControlEscolarApi.Api.Controllers;
 
+/// <summary>
+/// Controlador de la entidad TipoPersonal
+/// </summary>
 [Route("tipos-personal")]
 public class TiposPersonalController(ISender mediator, IMapper mapper) : ApiController
 {
@@ -23,6 +22,10 @@ public class TiposPersonalController(ISender mediator, IMapper mapper) : ApiCont
   private readonly ISender _mediator = mediator;
   private readonly IMapper _mapper = mapper;
 
+  /// <summary>
+  /// Obtiene una lista de tipo de personal con datos de paginación
+  /// </summary>
+  /// <returns>Lista paginada de tipo de personal o un problem</returns>
   [HttpGet]
   public async Task<IActionResult> GetTiposPersonal([FromQuery] PaginationQueryParams queryParams)
   {
@@ -35,6 +38,10 @@ public class TiposPersonalController(ISender mediator, IMapper mapper) : ApiCont
     );
   }
 
+  /// <summary>
+  /// Obtiene todos los tipos de personal
+  /// </summary>
+  /// <returns>Una lista de tipos de personal o un problem</returns>
   [HttpGet("all")]
   public async Task<IActionResult> GetAllTiposPersonal()
   {
@@ -46,6 +53,10 @@ public class TiposPersonalController(ISender mediator, IMapper mapper) : ApiCont
     );
   }
 
+  /// <summary>
+  /// Obtiene un tipo de personal por su id
+  /// </summary>
+  /// <returns>Un tipo de personal o un problem o un problem</returns>
   [HttpGet("item/{id}")]
   public async Task<IActionResult> GetTipoPersonalById(int id)
   {
@@ -57,6 +68,10 @@ public class TiposPersonalController(ISender mediator, IMapper mapper) : ApiCont
     );
   }
 
+  /// <summary>
+  /// Crea un nuevo tipo de personal
+  /// </summary>
+  /// <returns>un tipo de personal o un problem</returns>
   [HttpPost]
   public async Task<IActionResult> CreateTipoPersonal(CreateTipoPersonalRequest request)
   {
@@ -69,6 +84,10 @@ public class TiposPersonalController(ISender mediator, IMapper mapper) : ApiCont
     );
   }
 
+  /// <summary>
+  /// Actualiza la información de un tipo de personal
+  /// </summary>
+  /// <returns>Un tipo de personal o un problem</returns>
   [HttpPut]
   public async Task<IActionResult> UpdateTipoPersonal(UpdateTipoPersonalRequest request)
   {
@@ -82,6 +101,10 @@ public class TiposPersonalController(ISender mediator, IMapper mapper) : ApiCont
     );
   }
 
+  /// <summary>
+  /// Elimina un tipo de personal
+  /// </summary>
+  /// <returns>Boolean o un problem</returns>
   [HttpDelete("{id}")]
   public async Task<IActionResult> DeleteTipoPersonal(int id)
   {

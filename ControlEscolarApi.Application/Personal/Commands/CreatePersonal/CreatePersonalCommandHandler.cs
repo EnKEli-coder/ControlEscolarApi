@@ -7,6 +7,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Personal.Commands.CreatePersonal;
 
+/// <summary>
+/// Maneja la creación de un personal, valida duplicados y reglas de negocio
+/// </summary>
 public class CreatePersonalCommandHandler(
   IGenericRepository<Domain.Entities.Personal> personalRepository,
   IGenericRepository<TipoPersonal> tipoPersonalRepository,

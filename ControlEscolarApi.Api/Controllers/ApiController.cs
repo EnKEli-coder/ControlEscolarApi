@@ -4,10 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ControlEscolarApi.Api.Controllers;
 
+/// <summary>
+/// Controlador base con autorización
+/// </summary>
 [ApiController]
 [Authorize]
 public class ApiController : ControllerBase
 {
+  /// <summary>
+  /// Obtiene los errores y devuelve un Problem
+  /// </summary>
+  /// <returns></returns>
   protected IActionResult Problem(List<Error> errors) {
     
     HttpContext.Items["errors"] = errors;

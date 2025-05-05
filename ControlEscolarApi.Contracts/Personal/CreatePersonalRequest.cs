@@ -1,5 +1,9 @@
 namespace ControlEscolarApi.Contracts.Personal;
 
+
+/// <summary>
+/// Request con datos necesarios para la creación de un personal
+/// </summary>
 public class CreatePersonalRequest 
 {
     public string Nombre { get; set; } = null!;

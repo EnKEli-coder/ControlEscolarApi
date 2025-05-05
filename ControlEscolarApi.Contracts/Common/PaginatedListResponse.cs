@@ -1,5 +1,9 @@
 namespace ControlEscolarApi.Contracts.Common;
 
+
+/// <summary>
+/// Representa una respuesta con datos de paginación
+/// </summary>
 public class PaginatedListResponse<T>
 {
     public List<T> Items { get; set;} = new();

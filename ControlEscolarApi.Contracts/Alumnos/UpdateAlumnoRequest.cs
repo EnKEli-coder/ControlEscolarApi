@@ -1,5 +1,8 @@
 namespace ControlEscolarApi.Contracts.Alumnos;
 
+/// <summary>
+/// Request con datos necesarios para la actualización de un alumno
+/// </summary>
 public class UpdateAlumnoRequest {
     public int Id { get; set;}
     public string? Nombre { get; set;}

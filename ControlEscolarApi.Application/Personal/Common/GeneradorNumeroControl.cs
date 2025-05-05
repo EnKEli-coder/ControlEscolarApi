@@ -2,6 +2,9 @@ using System;
 
 namespace ControlEscolarApi.Application.Personal.Common;
 
+/// <summary>
+/// Maneja la generación de los numeros de control para personal
+/// </summary>
 public class GeneradorNumeroControl : IGeneradorNumeroControl 
 {
   public static readonly Random _random = new();

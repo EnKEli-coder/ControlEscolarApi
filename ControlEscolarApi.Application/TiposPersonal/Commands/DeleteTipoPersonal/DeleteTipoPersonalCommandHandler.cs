@@ -6,7 +6,10 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.TiposPersonal.Commands.DeleteTipoPersonal;
 
-public class CreateTipoPersonalCommandHandler(
+/// <summary>
+/// Maneja la eliminación de un tipo de personal
+/// </summary>
+public class DeleteTipoPersonalCommandHandler(
   IGenericRepository<TipoPersonal> tipoPersonalRepository ) : IRequestHandler<DeleteTipoPersonalCommand, ErrorOr<bool>>
 {
 

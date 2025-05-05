@@ -6,6 +6,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.TiposPersonal.Queries.GetTiposPersonal;
 
+/// <summary>
+/// Maneja la obtención de tipos de personal con paginación
+/// </summary>
 public class GetTiposPersonalQueryHandler(
   IGenericRepository<TipoPersonal> tipoPersonalRepository ) : IRequestHandler<GetTiposPersonalQuery, ErrorOr<PaginatedList<TipoPersonal>>>
 {

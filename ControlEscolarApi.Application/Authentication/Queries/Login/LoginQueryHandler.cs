@@ -10,6 +10,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Authentication.Queries.Login;
 
+/// <summary>
+/// Maneja el inicio de sesión, valida las credenciales, hashea la contraseña y devuelve un jwt.
+/// </summary>
 public class LoginQueryHandler(
   IJwtTokenGenerator jwtTokenGenerator,
   IGenericRepository<User> userRepository) : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>

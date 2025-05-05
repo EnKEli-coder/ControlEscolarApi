@@ -1,5 +1,8 @@
 namespace ControlEscolarApi.Contracts.Alumnos;
 
+/// <summary>
+/// Respuesta con los datos completos del Alumno
+/// </summary>
 public class AlumnoDetailedResponse {
     public int Id {get; set;}
     public string Nombre {get; set;} = null!;

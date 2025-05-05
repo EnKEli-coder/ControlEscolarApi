@@ -6,6 +6,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Alumnos.Commands.UpdateAlumno;
 
+/// <summary>
+/// Maneja la actualización de un alumno, valida duplicados.
+/// </summary>
 public class UpdateAlumnoCommandHandler(
   IGenericRepository<Alumno> alumnoRepository) : IRequestHandler<UpdateAlumnoCommand, ErrorOr<AlumnoResult>>
 {

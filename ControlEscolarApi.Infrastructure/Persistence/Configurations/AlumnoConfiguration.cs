@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ControlEscolarApi.Infrastructure.Persistence.Configurations;
 
+/// <summary>
+/// Configuración de la entidad Alumno a la tabla en base de datos
+/// </summary>
 public class AlumnoConfiguration : IEntityTypeConfiguration<Alumno>
 {
     public void Configure(EntityTypeBuilder<Alumno> builder)

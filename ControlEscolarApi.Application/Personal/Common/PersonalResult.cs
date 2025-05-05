@@ -1,5 +1,8 @@
 namespace ControlEscolarApi.Application.Personal.Common;
 
+/// <summary>
+/// Representa un personal para lista en una tabla
+/// </summary>
 public class PersonalResult 
 {
     public int Id { get; set; }

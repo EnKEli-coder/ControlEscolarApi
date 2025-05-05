@@ -2,6 +2,9 @@ using ErrorOr;
 
 namespace ControlEscolarApi.Domain.Common.Errors;
 
+/// <summary>
+/// Errores esperados de la entidad alumno
+/// </summary>
 public static partial class Errors {
   public static class Alumno
   {

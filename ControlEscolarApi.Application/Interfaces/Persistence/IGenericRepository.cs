@@ -1,5 +1,7 @@
+using System.Data.Common;
 using System.Linq.Expressions;
 using ControlEscolarApi.Application.Common.QueryParams;
+
 
 namespace ControlEscolarApi.Application.Interfaces.Persistence;
 
@@ -20,4 +22,5 @@ public interface IGenericRepository<T> where T : class
     Task<int> SaveAsync();
     public T? Select(Expression<Func<T, bool>> predicate);
     public Task<T?> SelectAsync(Expression<Func<T, bool>> predicate);
+    Task ExecuteStoredProcedureAsync(string spName, params DbParameter[] parameters);
 }

@@ -7,6 +7,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Common.Behaviors;
 
+/// <summary>
+/// Maneja el flujo de validaciones de los comandos y queries.
+/// </summary>
 public class ValidateBehavior<TRequest, TResponse>(
   IValidator<TRequest>? validator = null
 ) :

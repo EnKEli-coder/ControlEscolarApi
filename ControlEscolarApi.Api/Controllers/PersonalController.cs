@@ -12,14 +12,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ControlEscolarApi.Api.Controllers;
 
+/// <summary>
+/// Controlador de la entidad Personal
+/// </summary>
 [Route("personal")]
 public class PersonalController(ISender mediator, IMapper mapper) : ApiController
 {
     private readonly ISender _mediator = mediator;
     private readonly IMapper _mapper = mapper;
 
+    /// <summary>
+    /// Obtiene una lista de personal con datos de paginación
+    /// </summary>
+    /// <returns>Lista paginada de personal o un problem</returns>
     [HttpGet]
-    public async Task<IActionResult> GetPersonal([FromQuery] PaginationQueryParams queryParams) {
+    public async Task<IActionResult> GetPersonal([FromQuery] PaginationQueryParams queryParams)
+    {
 
         var result = await _mediator.Send(new GetPersonalQuery { QueryParams = queryParams });
 
@@ -29,6 +37,10 @@ public class PersonalController(ISender mediator, IMapper mapper) : ApiControlle
         );
     }
 
+    /// <summary>
+    /// Obtiene un personal por su id
+    /// </summary>
+    /// <returns>Un personal o un problem</returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPersonalById(int id)
     {
@@ -40,8 +52,13 @@ public class PersonalController(ISender mediator, IMapper mapper) : ApiControlle
         );
     }
 
+    /// <summary>
+    /// Crea un nuevo personal
+    /// </summary>
+    /// <returns>un personal o un problem</returns>
     [HttpPost]
-    public async Task<IActionResult> CreatePersonal(CreatePersonalRequest request) {
+    public async Task<IActionResult> CreatePersonal(CreatePersonalRequest request)
+    {
         var command = _mapper.Map<CreatePersonalCommand>(request);
         var result = await _mediator.Send(command);
 
@@ -51,8 +68,13 @@ public class PersonalController(ISender mediator, IMapper mapper) : ApiControlle
         );
     }
 
+    /// <summary>
+    /// Actualiza la información de un personal
+    /// </summary>
+    /// <returns>Un personal o un problem</returns>
     [HttpPut]
-    public async Task<IActionResult> UpdatePersonal(UpdatePersonalRequest request) {
+    public async Task<IActionResult> UpdatePersonal(UpdatePersonalRequest request)
+    {
 
         var command = _mapper.Map<UpdatePersonalCommand>(request);
         var result = await _mediator.Send(command);
@@ -63,10 +85,15 @@ public class PersonalController(ISender mediator, IMapper mapper) : ApiControlle
         );
     }
 
+    /// <summary>
+    /// Elimina un personal
+    /// </summary>
+    /// <returns>Boolean o un problem</returns>
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePersonal(int id) {
+    public async Task<IActionResult> DeletePersonal(int id)
+    {
 
-        var command = new DeletePersonalCommand{ Id = id};
+        var command = new DeletePersonalCommand { Id = id };
         var result = await _mediator.Send(command);
 
 

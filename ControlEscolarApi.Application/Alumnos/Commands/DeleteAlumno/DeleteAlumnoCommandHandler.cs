@@ -6,6 +6,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Alumnos.Commands.DeleteAlumno;
 
+/// <summary>
+/// Maneja la eliminación de un alumno
+/// </summary>
 public class DeleteAlumnoCommandHandler(
   IGenericRepository<Alumno> alumnoRepository ) : IRequestHandler<DeleteAlumnoCommand, ErrorOr<bool>>
 {

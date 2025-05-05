@@ -7,6 +7,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.TiposPersonal.Commands.UpdateTipoPersonal;
 
+/// <summary>
+/// Maneja la actualización de un tipo de personal, valida duplicados
+/// </summary>
 public class UpdateTipoPersonalCommandHandler(
   IGenericRepository<TipoPersonal> tipoPersonalRepository ) : IRequestHandler<UpdateTipoPersonalCommand, ErrorOr<TipoPersonal>>
 {

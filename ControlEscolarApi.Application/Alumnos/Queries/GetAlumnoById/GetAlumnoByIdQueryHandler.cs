@@ -7,6 +7,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Alumnos.Queries.GetAlumnoById;
 
+/// <summary>
+/// Maneja la obtención de un alumno por su id.
+/// </summary>
 public class GetAlumnoByIdQueryHandler(
   IGenericRepository<Alumno> alumnoRepository ) : IRequestHandler<GetAlumnoByIdQuery, ErrorOr<Alumno>>
 {

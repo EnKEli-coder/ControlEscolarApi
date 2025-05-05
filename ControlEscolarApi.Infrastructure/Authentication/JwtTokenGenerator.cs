@@ -8,6 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ControlEscolarApi.Infrastructure.Authentication;
 
+/// <summary>
+/// Maneja la creación de jwt
+/// </summary>
 public class jwtTokenGenerator(
     IDateTimeProvider dateTimeProvider,
     IOptions<JwtSettings> jwtOptions) : IJwtTokenGenerator

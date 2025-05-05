@@ -1,11 +1,22 @@
+using System.Reflection;
 using ControlEscolarApi.Api.Common.Errors;
 using ControlEscolarApi.Application;
 using ControlEscolarApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "ControlEscolarApi", Version="v1"});
+        
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory,xmlFile);
+        c.IncludeXmlComments(xmlPath);
+    });
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddAutoMapper(typeof(Program));
@@ -24,6 +35,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
+
+    if(app.Environment.IsDevelopment() ) {
+        app.UseSwagger();
+        app.UseSwaggerUI(c => {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "ControlEscolarApi");
+        });
+    }
+
     app.UseCors("AllowFrontend");
     app.UseExceptionHandler("/error");
     app.UseHttpsRedirection();

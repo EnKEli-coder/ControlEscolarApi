@@ -6,6 +6,9 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.TiposPersonal.Commands.CreateTipoPersonal;
 
+/// <summary>
+/// Maneja la creación de un tipo de personal, valida duplicados.s
+/// </summary>
 public class CreateTipoPersonalCommandHandler(
   IGenericRepository<TipoPersonal> tipoPersonalRepository ) : IRequestHandler<CreateTipoPersonalCommand, ErrorOr<TipoPersonal>>
 {

@@ -7,6 +7,12 @@
     <UserSecretsId>9142952b-34bc-4495-a135-d355e1347b91</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\Debug\net9.0\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ControlEscolarApi.Contracts\ControlEscolarApi.Contracts.csproj" />
     <ProjectReference Include="..\ControlEscolarApi.Infrastructure\ControlEscolarApi.Infrastructure.csproj" />
@@ -19,6 +25,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="SwashBukle.AspNetCore" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

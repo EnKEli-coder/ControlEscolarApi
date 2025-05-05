@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Linq.Expressions;
 using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Application.Interfaces.Persistence;
@@ -98,5 +99,14 @@ public class TipoPersonalRepository(ControlEscolarDbContext dbContext)  : IGener
   public void Update(TipoPersonal model)
   {
     _dbContext.Entry(model).State = EntityState.Modified;
+  }
+
+  public async Task ExecuteStoredProcedureAsync(string spName, params DbParameter[] parameters)
+  {
+#pragma warning disable EF1002 
+    await _dbContext.Database.ExecuteSqlRawAsync(
+        $"EXEC {spName} {string.Join(",", parameters.Select(p => $"@{p.ParameterName}"))}",
+        parameters);
+#pragma warning restore EF1002 
   }
 }
