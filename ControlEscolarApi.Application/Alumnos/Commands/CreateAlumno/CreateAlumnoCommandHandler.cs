@@ -7,11 +7,11 @@ using MediatR;
 namespace ControlEscolarApi.Application.Alumnos.Commands.CreateAlumno;
 
 public class CreateAlumnoCommandHandler(
-  IGenericRepository<Alumno> alumnoRepository )  : IRequestHandler<CreateAlumnoCommand, ErrorOr<Alumno>>
+  IGenericRepository<Alumno> alumnoRepository )  : IRequestHandler<CreateAlumnoCommand, ErrorOr<AlumnoResult>>
 {
   private readonly IGenericRepository<Alumno> _alumnoRepository = alumnoRepository;
 
-  public async Task<ErrorOr<Alumno>> Handle(CreateAlumnoCommand request, CancellationToken cancellationToken)
+  public async Task<ErrorOr<AlumnoResult>> Handle(CreateAlumnoCommand request, CancellationToken cancellationToken)
   {
     if( await _alumnoRepository.SelectAsync(alumno => alumno.Correo == request.Correo) is not null) {
       return Errors.Alumno.DuplicatedEmail;;
@@ -31,7 +31,15 @@ public class CreateAlumnoCommandHandler(
 
     _alumnoRepository.Add(alumno);
     await _alumnoRepository.SaveAsync();
-    return alumno;
+
+    var alumnoResult =  new AlumnoResult {
+        Id = alumno.Id,
+        Nombre = alumno.Nombre + " " + alumno.ApellidoPaterno + " " + alumno.ApellidoMaterno,
+        Correo = alumno.Correo,
+        NumeroControl = alumno.NumeroControl
+    };
+
+    return alumnoResult;
   }
 
   public static string GenerarNumeroControAlumno()

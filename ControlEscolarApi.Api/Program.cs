@@ -11,10 +11,20 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddAutoMapper(typeof(Program));
 
     builder.Services.AddSingleton<ProblemDetailsFactory, CustomProblemDetailsFactory>();
+    builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 }
 
 var app = builder.Build();
 {
+    app.UseCors("AllowFrontend");
     app.UseExceptionHandler("/error");
     app.UseHttpsRedirection();
     app.UseAuthentication();

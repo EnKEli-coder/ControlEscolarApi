@@ -21,16 +21,8 @@ public class UpdateTipoPersonalCommandHandler(
       return Errors.TipoPersonal.MissingTipoPersonal;
     }
 
-    if (request.Prefijo != null) {
-      if( await _tipoPersonalRepository.SelectAsync(tipos => tipos.Prefijo == request.Prefijo) is not null) {
-        return Errors.TipoPersonal.DuplicatedPrefix;
-      }
-
-      tipoPersonal.Prefijo = request.Prefijo;
-    }
-
     if (request.Nombre != null) {
-      if( await _tipoPersonalRepository.SelectAsync(tipos => tipos.Nombre == request.Nombre) is not null) {
+      if( await _tipoPersonalRepository.SelectAsync(tipos => tipos.Nombre == request.Nombre && tipos.Id != request.Id) is not null) {
         return Errors.TipoPersonal.DuplicatedName;
       }
       tipoPersonal.Nombre = request.Nombre;

@@ -27,6 +27,8 @@ public class AlumnoRepository(ControlEscolarDbContext dbContext) : IGenericRepos
       query = query.Where(alumno => alumno.NumeroControl.Contains(queryParams.Search));
     }
 
+    query = query.OrderByDescending(alumno => alumno.FechaCreacion);
+
     return query;
   }
 

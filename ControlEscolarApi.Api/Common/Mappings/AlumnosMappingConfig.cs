@@ -1,4 +1,5 @@
 using AutoMapper;
+using ControlEscolarApi.Application.Alumnos;
 using ControlEscolarApi.Application.Alumnos.Commands.CreateAlumno;
 using ControlEscolarApi.Application.Alumnos.Commands.DeleteAlumno;
 using ControlEscolarApi.Application.Alumnos.Commands.UpdateAlumno;
@@ -10,7 +11,8 @@ namespace ControlEscolarApi.Api.Common.Mappings;
 public class AlumnosMappingConfig : Profile {
 
   public AlumnosMappingConfig() {
-    CreateMap<Alumno, AlumnoResponse>();
+    CreateMap<Alumno, AlumnoDetailedResponse>();
+    CreateMap<AlumnoResult, AlumnoResponse>();
     CreateMap<CreateAlumnoRequest, CreateAlumnoCommand>();
     CreateMap<UpdateAlumnoRequest, UpdateAlumnoCommand>();
     CreateMap<DeleteAlumnoRequest, DeleteAlumnoCommand>();

@@ -1,7 +1,6 @@
-namespace ControlEscolarApi.Domain.Entities;
+namespace ControlEscolarApi.Contracts.Alumnos;
 
-public class Alumno
-{
+public class AlumnoDetailedResponse {
     public int Id {get; set;}
     public string Nombre {get; set;} = null!;
     public string ApellidoPaterno {get; set;} = null!;
@@ -10,5 +9,4 @@ public class Alumno
     public DateTime FechaNacimiento {get; set;}
     public string NumeroControl {get; set;} = null!;
     public bool Estatus {get; set;}
-    public DateTime FechaCreacion { get; set; }
 }

@@ -23,6 +23,8 @@ public class TipoPersonalRepository(ControlEscolarDbContext dbContext)  : IGener
       query = query.Where(tipoPersonal => tipoPersonal.Nombre.Contains(queryParams.Search));
     }
 
+    query = query.OrderByDescending(tipo => tipo.FechaCreacion);
+
     return query;
   }
 

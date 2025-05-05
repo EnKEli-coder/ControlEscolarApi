@@ -1,8 +1,6 @@
-using System.Security.Cryptography.X509Certificates;
+namespace ControlEscolarApi.Application.Alumnos;
 
-namespace ControlEscolarApi.Contracts.Alumnos;
-
-public class AlumnoResponse {
+public class AlumnoResult {
     public int Id { get; set;}
     public string Nombre { get; set;} = null!;
     public string Correo { get; set;}= null!;

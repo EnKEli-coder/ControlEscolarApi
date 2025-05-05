@@ -4,6 +4,7 @@ using ControlEscolarApi.Application.Personal.Commands.CreatePersonal;
 using ControlEscolarApi.Application.Personal.Commands.DeletePersonal;
 using ControlEscolarApi.Application.Personal.Commands.UpdatePersonal;
 using ControlEscolarApi.Application.Personal.Queries.GetPersonal;
+using ControlEscolarApi.Application.Personal.Queries.GetPersonalById;
 using ControlEscolarApi.Contracts.Common;
 using ControlEscolarApi.Contracts.Personal;
 using MediatR;
@@ -24,6 +25,17 @@ public class PersonalController(ISender mediator, IMapper mapper) : ApiControlle
 
         return result.Match(
             result => Ok(_mapper.Map<PaginatedListResponse<PersonalResponse>>(result)),
+            errors => Problem(errors)
+        );
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetPersonalById(int id)
+    {
+        var result = await _mediator.Send(new GetPersonalByIdQuery { Id = id });
+
+        return result.Match(
+            result => Ok(_mapper.Map<PersonalDetailedResponse>(result)),
             errors => Problem(errors)
         );
     }

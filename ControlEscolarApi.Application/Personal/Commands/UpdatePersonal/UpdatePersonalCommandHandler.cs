@@ -10,13 +10,13 @@ namespace ControlEscolarApi.Application.Personal.Commands.UpdatePersonal;
 public class UpdatePersonalCommandHandler(
   IGenericRepository<Domain.Entities.Personal> personalRepository,
   IGenericRepository<TipoPersonal> tipoPersonalRepository,
-  IGeneradorNumeroControl generadorNumeroControl )  : IRequestHandler<UpdatePersonalCommand, ErrorOr<Domain.Entities.Personal>>
+  IGeneradorNumeroControl generadorNumeroControl )  : IRequestHandler<UpdatePersonalCommand, ErrorOr<PersonalResult>>
 {
   IGenericRepository<Domain.Entities.Personal> _personalRepository = personalRepository;
   IGenericRepository<TipoPersonal> _tipoPersonalRepository = tipoPersonalRepository;
   IGeneradorNumeroControl _generadorNumeroControl = generadorNumeroControl;
 
-  public async Task<ErrorOr<Domain.Entities.Personal>> Handle(UpdatePersonalCommand request, CancellationToken cancellationToken)
+  public async Task<ErrorOr<PersonalResult>> Handle(UpdatePersonalCommand request, CancellationToken cancellationToken)
   {
     var personal = await _personalRepository.GetByIdAsync(request.Id);
     TipoPersonal? tipoPersonal =  null;
@@ -84,6 +84,17 @@ public class UpdatePersonalCommandHandler(
 
     await _personalRepository.SaveAsync();
 
-    return personal;
+    var personalResult = new PersonalResult {
+      Id = personal.Id,
+      Nombre = personal.Nombre + " " + personal.ApellidoPaterno + " " + personal.ApellidoMaterno,
+      Correo = personal.Correo,
+      NumeroControl = personal.NumeroControl,
+      TipoPersonalId = personal.TipoPersonalId,
+      TipoPersonal = personal.TipoPersonal.Nombre,
+      Sueldo = personal.Sueldo
+    };
+
+
+    return personalResult;
   }
 }

@@ -12,4 +12,7 @@ public class Personal
     public decimal Sueldo { get; set; }
     public bool Estatus { get; set; }
     public int TipoPersonalId { get; set; }
+    public DateTime FechaCreacion { get; set; }
+
+    public virtual TipoPersonal TipoPersonal { get; set; } = null!;
 }

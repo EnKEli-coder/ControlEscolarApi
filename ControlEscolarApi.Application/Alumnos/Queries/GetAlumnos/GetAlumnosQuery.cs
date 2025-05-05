@@ -6,6 +6,6 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Alumnos.Queries.GetAlumnos;
 
-public class GetAlumnosQuery : IRequest<ErrorOr<PaginatedList<Alumno>>>{
+public class GetAlumnosQuery : IRequest<ErrorOr<PaginatedList<AlumnoResult>>>{
     public PaginationQueryParams QueryParams { get; set; } = null!;
 }

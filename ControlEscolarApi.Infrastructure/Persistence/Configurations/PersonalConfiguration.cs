@@ -6,6 +6,7 @@ namespace ControlEscolarApi.Infrastructure.Persistence.Configurations;
 
 public class PersonalConfiguration : IEntityTypeConfiguration<Personal>
 {
+
     public void Configure(EntityTypeBuilder<Personal> builder)
     {
         builder.HasKey(personal => personal.Id);
@@ -44,9 +45,14 @@ public class PersonalConfiguration : IEntityTypeConfiguration<Personal>
         builder.Property(personal => personal.Estatus)
             .IsRequired();  
 
-        builder.HasOne<TipoPersonal>()
+        builder.HasOne(personal => personal.TipoPersonal)
             .WithMany()
             .HasForeignKey(personal => personal.TipoPersonalId)
             .OnDelete(DeleteBehavior.Cascade); 
+
+        builder.Property(e => e.FechaCreacion)
+            .HasDefaultValueSql("GETUTCDATE()");
+
+        
     }
 } 

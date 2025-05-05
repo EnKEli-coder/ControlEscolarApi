@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Alumnos.Commands.UpdateAlumno;
 
-public class UpdateAlumnoCommand : IRequest<ErrorOr<Alumno>> 
+public class UpdateAlumnoCommand : IRequest<ErrorOr<AlumnoResult>> 
 {
     public int Id { get; set;}
     public string? Nombre { get; set;}

@@ -10,13 +10,13 @@ namespace ControlEscolarApi.Application.Personal.Commands.CreatePersonal;
 public class CreatePersonalCommandHandler(
   IGenericRepository<Domain.Entities.Personal> personalRepository,
   IGenericRepository<TipoPersonal> tipoPersonalRepository,
-  IGeneradorNumeroControl generadorNumeroControl) : IRequestHandler<CreatePersonalCommand, ErrorOr<Domain.Entities.Personal>>
+  IGeneradorNumeroControl generadorNumeroControl) : IRequestHandler<CreatePersonalCommand, ErrorOr<PersonalResult>>
 {
   IGenericRepository<Domain.Entities.Personal> _personalRepository = personalRepository;
   IGenericRepository<TipoPersonal> _tipoPersonalRepository = tipoPersonalRepository;
   IGeneradorNumeroControl _generadorNumeroControl = generadorNumeroControl;
 
-  public async Task<ErrorOr<Domain.Entities.Personal>> Handle(CreatePersonalCommand request, CancellationToken cancellationToken)
+  public async Task<ErrorOr<PersonalResult>> Handle(CreatePersonalCommand request, CancellationToken cancellationToken)
   {
     if( await _personalRepository.SelectAsync(personal => personal.Correo == request.Correo) is not null) {
       return Errors.Personal.DuplicatedEmail;
@@ -25,7 +25,7 @@ public class CreatePersonalCommandHandler(
     var tipoPersonal = await _tipoPersonalRepository.GetByIdAsync(request.TipoPersonalId);
 
     if( tipoPersonal is null) {
-      return Errors.Personal.MissingPersonal;
+      return Errors.TipoPersonal.MissingTipoPersonal;
     }
 
     if(request.Sueldo > tipoPersonal.SueldoMaximo || request.Sueldo < tipoPersonal.SueldoMinimo){
@@ -34,7 +34,7 @@ public class CreatePersonalCommandHandler(
 
     var numeroControl = _generadorNumeroControl.GenerarNumeroControl(tipoPersonal.Prefijo);
 
-    var personal = new Domain.Entities.Personal {
+    var personal = new Domain.Entities.Personal{
       Nombre = request.Nombre,
       ApellidoPaterno = request.ApellidoPaterno,
       ApellidoMaterno = request.ApellidoMaterno,
@@ -48,6 +48,17 @@ public class CreatePersonalCommandHandler(
 
     _personalRepository.Add(personal);
     await _personalRepository.SaveAsync();
-    return personal;
+
+     var personalResult = new PersonalResult {
+      Id = personal.Id,
+      Nombre = personal.Nombre + " " + personal.ApellidoPaterno + " " + personal.ApellidoMaterno,
+      Correo = personal.Correo,
+      NumeroControl = numeroControl,
+      TipoPersonalId = personal.TipoPersonalId,
+      TipoPersonal = personal.TipoPersonal.Nombre,
+      Sueldo = personal.Sueldo
+    };
+
+    return personalResult;
   }
 }

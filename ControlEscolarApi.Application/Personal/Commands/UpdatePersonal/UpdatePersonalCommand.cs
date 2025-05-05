@@ -1,9 +1,10 @@
+using ControlEscolarApi.Application.Personal.Common;
 using ErrorOr;
 using MediatR;
 
 namespace ControlEscolarApi.Application.Personal.Commands.UpdatePersonal;
 
-public class UpdatePersonalCommand : IRequest<ErrorOr<Domain.Entities.Personal>>
+public class UpdatePersonalCommand : IRequest<ErrorOr<PersonalResult>>
 {
     public int Id { get; set; }
     public string? Nombre { get; set; }

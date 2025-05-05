@@ -29,5 +29,8 @@ public class TipoPersonalConfiguration : IEntityTypeConfiguration<TipoPersonal>
         builder.Property(tipoPersonal => tipoPersonal.SueldoMaximo)
             .IsRequired()
             .HasColumnType("decimal(10,2)");
+
+        builder.Property(e => e.FechaCreacion)
+            .HasDefaultValueSql("GETUTCDATE()");
     }
 } 

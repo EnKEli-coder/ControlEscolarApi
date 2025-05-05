@@ -8,9 +8,6 @@ public class UpdatePersonalCommandValidator : AbstractValidator<UpdateTipoPerson
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage("El id es requerido");
 
-        RuleFor(x => x.Prefijo)
-            .MaximumLength(10).WithMessage("El prefijo no puede exceder 10 caracteres");
-
         RuleFor(x => x.Nombre)
             .MaximumLength(100).WithMessage("El nombre no puede exceder 100 caracteres");
 

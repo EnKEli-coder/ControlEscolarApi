@@ -1,6 +1,6 @@
-namespace ControlEscolarApi.Contracts.Personal;
+namespace ControlEscolarApi.Application.Personal.Common;
 
-public class PersonalResponse 
+public class PersonalResult 
 {
     public int Id { get; set; }
     public string Nombre { get; set; } = null!;

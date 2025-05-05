@@ -23,7 +23,8 @@ namespace ControlEscolarApi.Infrastructure.Migrations
                     Correo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NumeroControl = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    Estatus = table.Column<bool>(type: "bit", nullable: false)
+                    Estatus = table.Column<bool>(type: "bit", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
                 constraints: table =>
                 {
@@ -39,7 +40,8 @@ namespace ControlEscolarApi.Infrastructure.Migrations
                     Prefijo = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     SueldoMinimo = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    SueldoMaximo = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
+                    SueldoMaximo = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
                 constraints: table =>
                 {
@@ -75,7 +77,8 @@ namespace ControlEscolarApi.Infrastructure.Migrations
                     NumeroControl = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Sueldo = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Estatus = table.Column<bool>(type: "bit", nullable: false),
-                    TipoPersonalId = table.Column<int>(type: "int", nullable: false)
+                    TipoPersonalId = table.Column<int>(type: "int", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
                 constraints: table =>
                 {

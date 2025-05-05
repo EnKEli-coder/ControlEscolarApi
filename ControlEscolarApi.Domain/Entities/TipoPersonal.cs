@@ -7,4 +7,5 @@ public class TipoPersonal
     public string Nombre { get; set;} = null!;
     public decimal SueldoMinimo { get; set;}
     public decimal SueldoMaximo { get; set;}
+    public DateTime FechaCreacion { get; set; }
 }

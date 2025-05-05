@@ -41,5 +41,8 @@ public class AlumnoConfiguration : IEntityTypeConfiguration<Alumno>
         
         builder.Property(alumno => alumno.Estatus)
             .IsRequired(); 
+            
+        builder.Property(e => e.FechaCreacion)
+            .HasDefaultValueSql("GETUTCDATE()");
     }
 } 

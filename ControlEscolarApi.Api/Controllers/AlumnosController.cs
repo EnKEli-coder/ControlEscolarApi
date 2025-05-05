@@ -2,11 +2,13 @@ using AutoMapper;
 using ControlEscolarApi.Application.Alumnos.Commands.CreateAlumno;
 using ControlEscolarApi.Application.Alumnos.Commands.DeleteAlumno;
 using ControlEscolarApi.Application.Alumnos.Commands.UpdateAlumno;
+using ControlEscolarApi.Application.Alumnos.Queries.GetAlumnoById;
 using ControlEscolarApi.Application.Alumnos.Queries.GetAlumnos;
 using ControlEscolarApi.Application.Common;
 using ControlEscolarApi.Application.Common.QueryParams;
 using ControlEscolarApi.Contracts.Alumnos;
 using ControlEscolarApi.Contracts.Common;
+using ControlEscolarApi.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +31,18 @@ public class AlumnosController(ISender mediator, IMapper mapper) : ApiController
             errors => Problem(errors)
         );
     }
+
+     [HttpGet("{id}")]
+    public async Task<IActionResult> GetAlumnoById(int id)
+    {
+        var result = await _mediator.Send(new GetAlumnoByIdQuery { Id = id });
+
+        return result.Match(
+            result => Ok(_mapper.Map<AlumnoDetailedResponse>(result)),
+            errors => Problem(errors)
+        );
+    }
+
 
     [HttpPost]
     public async Task<IActionResult> CreateAlumno(CreateAlumnoRequest request) {

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ControlEscolarApi.Application.Alumnos.Commands.CreateAlumno;
 
-public class CreateAlumnoCommand :  IRequest<ErrorOr<Alumno>>
+public class CreateAlumnoCommand :  IRequest<ErrorOr<AlumnoResult>>
 {
     public string Nombre { get; set;} = null!;
     public string ApellidoPaterno { get; set;}= null!;

@@ -28,6 +28,8 @@ public class PersonalRepository(ControlEscolarDbContext dbContext) : IGenericRep
             $"%{search}%"));
     }
 
+    query = query.OrderByDescending(personal => personal.FechaCreacion);
+
     return query;
   }
 
