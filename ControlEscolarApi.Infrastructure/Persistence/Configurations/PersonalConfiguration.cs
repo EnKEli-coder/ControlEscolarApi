@@ -37,7 +37,7 @@ public class PersonalConfiguration : IEntityTypeConfiguration<Personal>
         
         builder.Property(personal => personal.NumeroControl)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(26);
         builder.HasIndex(personal => personal.NumeroControl)
             .IsUnique();
         
