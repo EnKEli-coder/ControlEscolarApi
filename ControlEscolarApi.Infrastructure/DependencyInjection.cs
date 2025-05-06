@@ -27,7 +27,7 @@ namespace ControlEscolarApi.Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             services.AddDbContext<ControlEscolarDbContext>(options =>
-                options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=ControlEscolarDb;User Id=ORomero;Password=Chocorrol2510@;Encrypt=false"));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IGenericRepository<User>, UserRepository>();
             services.AddScoped<IGenericRepository<Alumno>, AlumnoRepository>();
