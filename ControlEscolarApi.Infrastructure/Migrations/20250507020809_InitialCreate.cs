@@ -74,7 +74,7 @@ namespace ControlEscolarApi.Infrastructure.Migrations
                     ApellidoMaterno = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Correo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NumeroControl = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    NumeroControl = table.Column<string>(type: "nvarchar(26)", maxLength: 26, nullable: false),
                     Sueldo = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Estatus = table.Column<bool>(type: "bit", nullable: false),
                     TipoPersonalId = table.Column<int>(type: "int", nullable: false),
@@ -131,6 +131,46 @@ namespace ControlEscolarApi.Infrastructure.Migrations
                 table: "Users",
                 column: "Email",
                 unique: true);
+
+            migrationBuilder.Sql(@"
+            CREATE OR ALTER PROCEDURE sp_ActualizarNumerosControl
+                @TipoPersonalId INT,
+                @NuevoPrefijo NVARCHAR(10)
+            AS
+            BEGIN
+                SET NOCOUNT ON;
+    
+                BEGIN TRY
+                    BEGIN TRANSACTION;
+                    
+                    -- 1. Validar que el nuevo prefijo no cause duplicados
+                    IF EXISTS (
+                        SELECT 1 
+                        FROM Personal p1
+                        JOIN Personal p2 ON 
+                            p2.Id <> p1.Id AND
+                            concat(@NuevoPrefijo, SUBSTRING(p2.NumeroControl, CHARINDEX('-', p2.NumeroControl), LEN(p2.NumeroControl))) = p1.NumeroControl
+                    )
+                    BEGIN
+                        RAISERROR('El cambio de prefijo causaría duplicados en números de control', 16, 1);
+                        ROLLBACK;
+                        RETURN;
+                    END;
+                    
+                    UPDATE p
+                    SET NumeroControl = concat(@NuevoPrefijo,  SUBSTRING(p.NumeroControl, CHARINDEX('-', p.NumeroControl), LEN(p.NumeroControl)))
+                    FROM Personal p
+                    WHERE p.TipoPersonalId = @TipoPersonalId;
+                    
+                    COMMIT;
+                END TRY
+                BEGIN CATCH
+                    IF @@TRANCOUNT > 0
+                        ROLLBACK;
+                        
+                    THROW;
+                END CATCH;
+            END;");
         }
 
         /// <inheritdoc />
@@ -147,6 +187,8 @@ namespace ControlEscolarApi.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "TiposPersonal");
+
+            migrationBuilder.Sql("DROP PROCEDURE IF EXISTS sp_ActualizarNumerosControl");
         }
     }
 }

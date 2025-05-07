@@ -118,8 +118,8 @@ namespace ControlEscolarApi.Infrastructure.Migrations
 
                     b.Property<string>("NumeroControl")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
 
                     b.Property<decimal>("Sueldo")
                         .HasColumnType("decimal(10,2)");
@@ -210,11 +210,13 @@ namespace ControlEscolarApi.Infrastructure.Migrations
 
             modelBuilder.Entity("ControlEscolarApi.Domain.Entities.Personal", b =>
                 {
-                    b.HasOne("ControlEscolarApi.Domain.Entities.TipoPersonal", null)
+                    b.HasOne("ControlEscolarApi.Domain.Entities.TipoPersonal", "TipoPersonal")
                         .WithMany()
                         .HasForeignKey("TipoPersonalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TipoPersonal");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,8 +15,8 @@ public class TipoPersonalPrefijoActualizadoEventHandler(
   public async Task Handle(TipoPersonalPrefijoActualizadoEvent notification, CancellationToken cancellationToken)
   {
     await _personalRepository.ExecuteStoredProcedureAsync(
-            "sp_ActualizarNumerosControlPorTipo",
-            new SqlParameter("@TipoPersonalId", notification.Id),
-            new SqlParameter("@NuevoPrefijo", notification.NuevoPrefijo));
+            "sp_ActualizarNumerosControl",
+            new SqlParameter("TipoPersonalId", notification.Id),
+            new SqlParameter("NuevoPrefijo", notification.NuevoPrefijo));
   }
 }

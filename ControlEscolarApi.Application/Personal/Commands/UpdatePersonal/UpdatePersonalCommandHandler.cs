@@ -53,7 +53,7 @@ public class UpdatePersonalCommandHandler(
         personal.FechaNacimiento = request.FechaNacimiento.Value;
     }
 
-    if (request.TipoPersonalId != null) {
+    if (request.TipoPersonalId != null && request.TipoPersonalId != personal.TipoPersonalId) {
         personal.TipoPersonalId = request.TipoPersonalId.Value;
 
         tipoPersonal = await _tipoPersonalRepository.GetByIdAsync(personal.TipoPersonalId);
